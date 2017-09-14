@@ -59,7 +59,7 @@ long xboxAxisToVJoy(SHORT val, bool reverse)
 
 long xboxTriggerToVJoy(BYTE val)
 {
-    return long((double(val) / 255.0) * 16383) + 16384;
+    return 1 + (val << 7) + (val >> 1);
 }
 
 bool directionPressed(const QVector<bool> &buttons, bool left, bool up, bool right, bool down)
@@ -316,7 +316,7 @@ void ControllerRemapper::initializeDevice(UINT deviceId)
     } else {
         qDebug() << "Acquired: vJoy device number" << deviceId;
     }
-    
+
     initializedDevices.insert(deviceId);
 }
 
